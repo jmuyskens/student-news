@@ -1,0 +1,84 @@
+body { 
+    font-family:Titillium Web;
+    line-height:1.5em;
+    color: #424242;
+    background-color: #e8e8e8;
+}
+#wrap {
+    width:40em;
+    margin: 0 auto;
+    position:relative;
+   
+}
+#logo {
+    width: 150px;
+    padding:0;
+    margin: 0 auto;
+}
+.messageheader {
+    margin: 0px;
+    width: 40em;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.messageheader p {
+    padding: 0em;
+    margin: 0em;
+    margin-top:0em;
+    margin-bottom:0em;
+}
+.separator {
+    position: relative;
+    height: 0;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #fafaf9;
+    border-bottom: 1px solid #ccc;
+    margin-top: 0.5em;
+}
+.thismorning {
+    text-align:center;
+    line-height:1em;
+}
+
+.date {
+    width: 5em;
+    font-size:1em;
+    position:absolute;
+    top: -0.5em;
+    left: 0.5em;
+}
+.number {
+    width: 6em;
+    font-size:1em;
+    position:absolute;
+    text-align:right;
+    top: 0em;
+    right: 0.5em;    
+}
+.welcome {
+    text-align: center;
+    font-style: italic;
+}
+.message {
+    width: 38em;
+    margin: 0 auto;
+}
+.messagetitle {
+    font-weight:600;
+    margin: 0px;
+    font-size: 1.5em;
+    text-shadow: 0px 1px 1px #fff;
+}
+.sender {
+    color:#848484;
+}
+h1 {
+    font-family: Titillium Web, sans-serif;
+    font-weight:800;
+    color: #670606;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    font-size: 4em;
+    text-align:center;
+}

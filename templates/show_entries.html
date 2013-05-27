@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if session.logged_in %}
+<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+  <dl>
+    <dt>Name:
+      <dd><input type=text size=30 name=sender>
+	<dt>Email:
+	  <dd><input type=text size=30 name=email>
+    <dt>Title:
+      <dd><input type=text size=30 name=title>
+	<dt>Body:
+	  <dd><textarea name=body rows=5 cols=40></textarea>
+	    <dd><input type=submit value=Post>
+  </dl>
+</form>
+
+{% endif %}
+
+{% for entry in entries %}
+<div class="separator"></div>
+<div class="messageheader"><p class="sender">{{ entry.sender }} | <code>{{ entry.email }}</code></p><p class="messagetitle">{{ entry.title }}</p></div><p class="message">{{ entry.body|safe }}</p>
+{% else %}
+<li><em>Unbelievable. No entries here so far</em>
+{% endfor %}
+{% endblock %}
