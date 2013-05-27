@@ -1,16 +1,22 @@
-<!doctype html>
-
-<title>Student News</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='student-news.css') }}">
-<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700,900,200italic,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
-<div id=wrap>
-  <div id=logo><img src="{{ url_for('static', filename='logo_maroon.png') }}" width="150px" /></div>
-  <p class=date>Thursday April 18, 2013</p>
-  <p class=number>Number 2345 Volume 4</p>
-  <h1>Student News</h1>
-  <p class="welcome">Welcome to the official daily email news source for Calvin students. Established 1999.</p>
-  {% for message in get_flashed_messages() %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Student News</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='student-news.css') }}">
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700,900,200italic,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div id=wrap>
+    <div id=logo><img src="{{ url_for('static', filename='logo_maroon.png') }}" width="150px" /></div>
+    <p class=date>Thursday April 18, 2013</p>
+    <p class=number>Number 2345 Volume 4</p>
+    <h1>Student News</h1>
+    <p class="welcome">Welcome to the official daily email news source for Calvin students. Established 1999.</p>
+    {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
-  {% endfor %}
-  {% block body %}{% endblock %}
-</div>
+    {% endfor %}
+    {% block body %}{% endblock %}
+  </div>
+</body>
+</html>
