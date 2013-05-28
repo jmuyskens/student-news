@@ -1,0 +1,4 @@
+function setDelete(key)
+{
+    document.deleteForm.delKey.value = key;
+}

@@ -36,8 +36,8 @@ def teardown_request(exception):
 
 @app.route('/')
 def show_entries():
-    cur = g.db.execute('select title, body, sender, email from entries order by id desc')
-    entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3]) for row in cur.fetchall()]
+    cur = g.db.execute('select title, body, sender, email, id from entries order by id desc')
+    entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
 @app.route('/add', methods=['POST'])
@@ -49,6 +49,16 @@ def add_entry():
                   request.form['sender'], request.form['email']])
     g.db.commit()
     flash('New entry was successfully posted')
+    return redirect(url_for('show_entries'))
+
+@app.route('/del', methods=['POST'])
+def del_entry():
+    if not session.get('logged_in'):
+        abort(401)
+    id = request.form['delKey']
+    g.db.execute('delete from entries where id=' + id)
+    g.db.commit()
+    flash('deleted entry ' + id)
     return redirect(url_for('show_entries'))
 
 @app.route('/login',methods=['GET','POST'])

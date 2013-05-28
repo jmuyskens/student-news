@@ -7,8 +7,8 @@ body {
 #wrap {
     width:40em;
     margin: 0 auto;
-    padding: 0 0;
     position:relative;
+   
 }
 #logo {
     width: 150px;
@@ -16,14 +16,26 @@ body {
     margin: 0 auto;
 }
 .deletebutton {
-    float:right;
-    margin: 0 0;
-    padding: 0 0;
+    float: right;
+    background-color:red;
+    color:white;
+    border-radius:5px;
+}
+input[type="submit"] {
+    color:whitesmoke;
+    border-radius:5px;
 }
 .messageheader {
+    margin: 0px;
     width: 40em;
-    margin: 0 0;
-    padding: 0 0;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+.messageheader p {
+    padding: 0em;
+    margin: 0em;
+    margin-top:0em;
+    margin-bottom:0em;
 }
 .separator {
     position: relative;
@@ -32,8 +44,7 @@ body {
     border: 0;
     border-top: 1px solid #fafaf9;
     border-bottom: 1px solid #ccc;
-    margin: 0.5em 0;
-    padding: 0 0;
+    margin-top: 0.5em;
 }
 .thismorning {
     text-align:center;
@@ -65,20 +76,19 @@ body {
 }
 .messagetitle {
     font-weight:600;
-    margin: 0 0 0.2em 0;
+    margin: 0px;
     font-size: 1.5em;
     text-shadow: 0px 1px 1px #fff;
-    clear:both;
 }
 .sender {
     color:#848484;
-    float:left;
-    margin: 0 0;
 }
 h1 {
     font-family: Titillium Web, sans-serif;
     font-weight:800;
-    margin: 0.4em 0;
+
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
     font-size: 4em;
     text-align:center;
 }
