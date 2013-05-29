@@ -4,5 +4,6 @@ create table entries (
        title string not null,
        body string not null,
        sender string not null,
-       email string not null
+       email string not null,
+       approved integer not null
 );

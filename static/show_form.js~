@@ -1,0 +1,9 @@
+$("#addPost").click(function() {
+    if ($("#entryForm").css("display") == "none") {
+	$("#entryForm").slideDown();
+	$(this).text("Hide");
+    } else {
+	$("#entryForm").slideUp();
+	$(this).text("Add post");
+    }
+});

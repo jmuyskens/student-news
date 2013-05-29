@@ -1,24 +1,39 @@
 {% extends "layout.html" %}
 {% block body %}
 
+
+
 {% if session.logged_in %}
-<div class="separator"></div>
-<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-  <dl>
-    <dt>Name:
-      <dd><input type=text size=30 name=sender>
-	<dt>Email:
-	  <dd><input type=email size=30 name=email>
-    <dt>Title:
-      <dd><input type=text size=30 name=title>
-	<dt>Body:
-	  <dd><textarea name=body rows=5 cols=40></textarea>
-	    <dd><input type=submit value=Post>
-  </dl>
-</form>
-
+{% if pending %}
+<h2>Entries pending approval</h2>
 {% endif %}
+{% for entry in pending %}
+<div class="separator"></div>
+<div class="messageheader unapproved">
+  <p class="sender">{{ entry.sender }} | 
+    <code>{{ entry.email }}</code>
+    <form name="approveForm{{ entry.id }}" action="{{ url_for('app_entry') }}" method=post class=app-entry>
+      <dl>
+	<input type="hidden" name="appKey" value={{ entry.id }}>
+	<dd><input class="approvebutton" type=submit value=Approve>
+      </dl>
+    </form>
+    <form name="deleteForm{{ entry.id }}" action="{{ url_for('del_entry') }}" method=post class=del-entry>
+      <dl>
+	<input type="hidden" name="delKey" value="{{ entry.id }}">
+	<dd><input class="deletebutton" type=submit value=Delete >
+      </dl>
+    </form>
+  </p>
+  <p class="messagetitle">{{ entry.title }}</p>
+</div>
+<p class="message">{{ entry.body|safe }}</p>
 
+{% endfor %}
+{% endif %}
+{% if entries and session.logged_in %}
+<h2>Approved entries</h2>
+{% endif %}
 {% for entry in entries %}
 <div class="separator"></div>
 <div class="messageheader">
@@ -36,7 +51,31 @@
   <p class="messagetitle">{{ entry.title }}</p>
 </div>
 <p class="message">{{ entry.body|safe }}</p>
-{% else %}
-<li><em>Unbelievable. No entries here so far</em>
 {% endfor %}
+
+<div class="separator"></div>
+<button id="addPost">Add post</button>
+{% if not session.logged_in %}
+<form action="{{ url_for('login') }}" style="display:inline">
+  <input type="submit" class="login" value="Login" style="display:inline">
+</form>
+{% else %}
+<form action="{{ url_for('logout') }}" style="display:inline">
+  <input type="submit" class="login" value="Logout" style="display:inline">
+</form>
+{% endif %}
+<form action="{{ url_for('add_entry') }}" style="display:none" id="entryForm" method=post class=add-entry>
+  <dl>
+    <dt>Name:
+      <dd><input type=text size=30 name=sender>
+	<dt>Email:
+	  <dd><input type=email size=30 name=email>
+    <dt>Title:
+      <dd><input type=text size=30 name=title>
+	<dt>Body:
+	  <dd><textarea name=body rows=5 cols=40></textarea>
+	    <dd><input type=submit value=Post>
+  </dl>
+</form>
+
 {% endblock %}
