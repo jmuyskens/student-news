@@ -2,10 +2,10 @@ import sqlite3
 from message import Message
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
-    abort, render_template, flash
+    abort, render_template, flash, jsonify
 
 # configuration
-DATABASE = '/tmp/news.db'
+DATABASE = 'news.db'
 DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
@@ -55,15 +55,15 @@ def add_entry():
     flash('We will post your entry pending approval')
     return redirect(url_for('show_entries'))
 
-@app.route('/del', methods=['POST'])
+@app.route('/del')
 def del_entry():
     if not session.get('logged_in'):
         abort(401)
-    id = request.form['delKey']
-    g.db.execute('delete from entries where id=' + id)
+    id = request.args.get('id', 0, type=int)
+    g.db.execute('delete from entries where id=' + str(id))
     g.db.commit()
-    flash('deleted entry ' + id)
-    return redirect(url_for('show_entries'))
+    flash('deleted entry ' + str(id))
+    return jsonify('')
 
 @app.route('/app', methods=['POST'])
 def app_entry():

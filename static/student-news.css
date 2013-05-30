@@ -15,6 +15,10 @@ body {
     padding:0;
     margin: 0 auto;
 }
+dd {
+    padding: 0 0;
+    margin: 0 0;
+}
 .deletebutton {
     float:right;
     margin: 0 0;
@@ -70,7 +74,7 @@ body {
     text-align: center;
     font-style: italic;
 }
-.message {
+.messagebody {
     width: 38em;
     margin: 0 auto;
 }

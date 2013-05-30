@@ -7,10 +7,12 @@
 
   <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700,900,200italic,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
+  <script src="{{ url_for('static', filename='delete-news.js') }}"></script>
 </head>
 <body>
-
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
   <div id=wrap>
      <div id=logo><img src="{{ url_for('static', filename='logo_maroon.png') }}" width="150px" /></div>
     <p class=date>Thursday April 18, 2013</p>

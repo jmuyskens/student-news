@@ -8,6 +8,7 @@
 <h2>Entries pending approval</h2>
 {% endif %}
 {% for entry in pending %}
+<div class="message {{ entry.id }}">
 <div class="separator"></div>
 <div class="messageheader unapproved">
   <p class="sender">{{ entry.sender }} | 
@@ -18,39 +19,34 @@
 	<dd><input class="approvebutton" type=submit value=Approve>
       </dl>
     </form>
-    <form name="deleteForm{{ entry.id }}" action="{{ url_for('del_entry') }}" method=post class=del-entry>
-      <dl>
-	<input type="hidden" name="delKey" value="{{ entry.id }}">
-	<dd><input class="deletebutton" type=submit value=Delete >
-      </dl>
-    </form>
+
+    <input class="deletebutton" type=button value=Delete onClick="delnews({{ entry.id }})">
+
+
   </p>
   <p class="messagetitle">{{ entry.title }}</p>
 </div>
-<p class="message">{{ entry.body|safe }}</p>
-
+<p class="messagebody">{{ entry.body|safe }}</p>
+</div>
 {% endfor %}
 {% endif %}
 {% if entries and session.logged_in %}
 <h2>Approved entries</h2>
 {% endif %}
 {% for entry in entries %}
+<div class="message {{ entry.id }}">
 <div class="separator"></div>
 <div class="messageheader">
   <p class="sender">{{ entry.sender }} | 
     <code>{{ entry.email }}</code>
     {% if session.logged_in %}
-    <form name="deleteForm{{ entry.id }}" action="{{ url_for('del_entry') }}" method=post class=del-entry>
-      <dl>
-	<input type="hidden" name="delKey" value="{{ entry.id }}">
-	<dd><input class="deletebutton" type=submit value=Delete >
-      </dl>
-    </form>
+    <dd><input class="deletebutton" type=button value=Delete onClick="delnews({{ entry.id }})">
     {% endif %}
   </p>
   <p class="messagetitle">{{ entry.title }}</p>
 </div>
-<p class="message">{{ entry.body|safe }}</p>
+<p class="messagebody">{{ entry.body|safe }}</p>
+</div>
 {% endfor %}
 
 <div class="separator"></div>
