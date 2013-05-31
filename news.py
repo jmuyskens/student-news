@@ -36,23 +36,29 @@ def teardown_request(exception):
 
 @app.route('/')
 def show_entries():
-    cur = g.db.execute('select title, body, sender, email, id, approved from entries order by id desc')
-    entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4], approved=row[5]) for row in cur.fetchall()]
+    cur = g.db.execute('select title, body, sender, email, id, approved, tags from entries order by id desc')
+    entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4], approved=row[5], tags=row[6].split(",")) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 
-@app.route('/add', methods=['POST'])
+@app.route('/add', methods=["POST"])
 def add_entry():
-    if session.get('logged_in'):
-        appr = 1
-    else:
-        appr = 0
-    g.db.execute('insert into entries (title, body, sender, email, approved) values (?, ?, ?, ?, ?)',
-                 [request.form['title'], request.form['body'],       \
-                  request.form['sender'], request.form['email'], appr])
-    g.db.commit()
-    if not session.get('logged_in'):
-            flash('We will post your entry pending approval')
-    return redirect(url_for('show_entries'))
+
+        if session.get('logged_in'):
+                appr = 1
+        else:
+                appr = 0
+
+        g.db.execute('insert into entries (title, body, sender, email, approved, tags) values (?, ?, ?, ?, ?, ?)',
+                     [request.json['title'],      \
+                      request.json['body'],       \
+                      request.json['sender'],     \
+                      request.json['email'],      \
+                      appr,                           \
+                      ",".join(request.json['tags']) ])
+        g.db.commit()
+        if not session.get('logged_in'):
+                flash('We will post your entry pending approval')
+        return jsonify("")
 
 @app.route('/del')
 def del_entry():

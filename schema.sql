@@ -5,5 +5,6 @@ create table entries (
        body string not null,
        sender string not null,
        email string not null,
-       approved integer not null
+       approved integer not null,
+       tags string not null
 );
