@@ -1,45 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
-
-
-
-{% if session.logged_in %}
-{% if pending %}
-<h2>Entries pending approval</h2>
-{% endif %}
-{% for entry in pending %}
-<div class="message {{ entry.id }}">
-<div class="separator"></div>
-<div class="messageheader unapproved">
-  <p class="sender">{{ entry.sender }} | 
-    <code>{{ entry.email }}</code>
-    <form name="approveForm{{ entry.id }}" action="{{ url_for('app_entry') }}" method=post class=app-entry>
-      <dl>
-	<input type="hidden" name="appKey" value={{ entry.id }}>
-	<dd><input class="approvebutton" type=submit value=Approve>
-      </dl>
-    </form>
-
-    <input class="deletebutton" type=button value=Delete onClick="delnews({{ entry.id }})">
-
-
-  </p>
-  <p class="messagetitle">{{ entry.title }}</p>
-</div>
-<p class="messagebody">{{ entry.body|safe }}</p>
-</div>
-{% endfor %}
-{% endif %}
-{% if entries and session.logged_in %}
-<h2>Approved entries</h2>
-{% endif %}
 {% for entry in entries %}
+{% if session.logged_in or entry.approved %}
 <div class="message {{ entry.id }}">
 <div class="separator"></div>
-<div class="messageheader">
+<div class="messageheader {% if not entry.approved %}.unapproved{% endif %}">
   <p class="sender">{{ entry.sender }} | 
     <code>{{ entry.email }}</code>
     {% if session.logged_in %}
+    {% if not entry.approved %}
+    <dd><input class="approvebutton" type=button value=Approve onClick="appnews({{ entry.id }})">
+    {% endif %}
     <dd><input class="deletebutton" type=button value=Delete onClick="delnews({{ entry.id }})">
     {% endif %}
   </p>
@@ -47,10 +18,13 @@
 </div>
 <p class="messagebody">{{ entry.body|safe }}</p>
 </div>
+{% endif %}
 {% endfor %}
+
 
 <div class="separator"></div>
 <button id="addPost">Add post</button>
+<button id="testPost" onClick="testPost()">Test post</button>
 {% if not session.logged_in %}
 <form action="{{ url_for('login') }}" style="display:inline">
   <input type="submit" class="login" value="Login" style="display:inline">
@@ -65,7 +39,7 @@
     <dt>Name:
       <dd><input type=text size=30 name=sender>
 	<dt>Email:
-	  <dd><input type=email size=30 name=email>
+	  <dd><input type=email  size=30 name=email>
     <dt>Title:
       <dd><input type=text size=30 name=title>
 	<dt>Body:
@@ -73,5 +47,4 @@
 	    <dd><input type=submit value=Post>
   </dl>
 </form>
-
 {% endblock %}

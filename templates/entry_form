@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block form %}
+<div class="separator"></div>
+<button id="addPost">Add post</button>
+{% if not session.logged_in %}
+<form action="{{ url_for('login') }}" style="display:inline">
+  <input type="submit" class="login" value="Login" style="display:inline">
+</form>
+{% else %}
+<form action="{{ url_for('logout') }}" style="display:inline">
+  <input type="submit" class="login" value="Logout" style="display:inline">
+</form>
+{% endif %}
+<form action="{{ url_for('add_entry') }}" style="display:none" id="entryForm" method=post class=add-entry>
+  <dl>
+    <dt>Name:
+      <dd><input type=text size=30 name=sender>
+	<dt>Email:
+	  <dd><input type=email size=30 name=email>
+    <dt>Title:
+      <dd><input type=text size=30 name=title>
+	<dt>Body:
+	  <dd><textarea name=body rows=5 cols=40></textarea>
+	    <dd><input type=submit value=Post>
+  </dl>
+</form>
+{% endblock %}

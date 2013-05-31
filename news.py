@@ -36,11 +36,9 @@ def teardown_request(exception):
 
 @app.route('/')
 def show_entries():
-    cur = g.db.execute('select title, body, sender, email, id from entries where approved = 1 order by id desc')
-    entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4]) for row in cur.fetchall()]
-    cur = g.db.execute('select title, body, sender, email, id from entries where approved = 0 order by id desc')
-    pending = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4]) for row in cur.fetchall()]
-    return render_template('show_entries.html', entries=entries, pending=pending)
+    cur = g.db.execute('select title, body, sender, email, id, approved from entries order by id desc')
+    entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4], approved=row[5]) for row in cur.fetchall()]
+    return render_template('show_entries.html', entries=entries)
 
 @app.route('/add', methods=['POST'])
 def add_entry():
@@ -52,7 +50,8 @@ def add_entry():
                  [request.form['title'], request.form['body'],       \
                   request.form['sender'], request.form['email'], appr])
     g.db.commit()
-    flash('We will post your entry pending approval')
+    if not session.get('logged_in'):
+            flash('We will post your entry pending approval')
     return redirect(url_for('show_entries'))
 
 @app.route('/del')
@@ -62,18 +61,16 @@ def del_entry():
     id = request.args.get('id', 0, type=int)
     g.db.execute('delete from entries where id=' + str(id))
     g.db.commit()
-    flash('deleted entry ' + str(id))
-    return jsonify('')
+    return jsonify('') # better way to do this?
 
-@app.route('/app', methods=['POST'])
+@app.route('/app')
 def app_entry():
     if not session.get('logged_in'):
         abort(401)
-    id = request.form['appKey']
-    g.db.execute('update entries SET approved = 1 WHERE id = ' + id)
+    id = request.args.get('id', 0, type=int)
+    g.db.execute('update entries SET approved = 1 WHERE id = ' + str(id))
     g.db.commit()
-    flash('approved entry ' + id)
-    return redirect(url_for('show_entries'))
+    return jsonify('')
 
 @app.route('/login',methods=['GET','POST'])
 def login():

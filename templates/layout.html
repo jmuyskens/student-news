@@ -23,6 +23,7 @@
     <div class=flash>{{ message }}</div>
     {% endfor %}
     {% block body %}{% endblock %}
+    {% block form %}{% endblock %}
   </div>
   <script src="{{ url_for('static', filename='show_form.js') }}"></script>
 </body>
