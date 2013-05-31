@@ -4,14 +4,14 @@
 {% if session.logged_in or entry.approved %}
 <div class="message {{ entry.id }}">
 <div class="separator"></div>
-<div class="messageheader {% if not entry.approved %}.unapproved{% endif %}">
+<div class="messageheader {% if not entry.approved %}unapproved{% endif %}">
   <p class="sender">{{ entry.sender }} | 
     <code>{{ entry.email }}</code>
     {% if session.logged_in %}
     {% if not entry.approved %}
-    <dd><input class="approvebutton" type=button value=Approve onClick="appnews({{ entry.id }})">
+    <dd><input class="approvebutton" type=button value=Approve onClick="appnews({{ entry.id }})"></dd>
     {% endif %}
-    <dd><input class="deletebutton" type=button value=Delete onClick="delnews({{ entry.id }})">
+    <dd><input class="deletebutton" type=button value=Delete onClick="delnews({{ entry.id }})"></dd>
     {% endif %}
   </p>
   <p class="messagetitle">{{ entry.title }}</p>

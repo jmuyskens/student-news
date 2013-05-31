@@ -28,12 +28,14 @@ dd {
     float:right;
     margin: 0 0 0 0.5em;
     padding: 0 0;
+    overflow:hidden;
 }
 .login {
     float:right;
 }
-.messageheader.unapproved {
-    background-color: yellow;
+.unapproved {
+    background:yellow;
+    border-radius:5px;
 }
 .messageheader {
     width: 40em;

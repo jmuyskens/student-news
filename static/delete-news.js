@@ -11,7 +11,10 @@ function appnews(key) {
     $.getJSON($SCRIPT_ROOT + '/app', {
 	id: key
     }, function(data) {
-	$(".message." + key +" .approvebutton").hide();
+	$(".message." + key + " .messageheader dd .approvebutton").hide(function() {
+	    (this).remove();
+	});
+	$(".message." + key + " .messageheader").removeClass("unapproved", 1000);
     });
     return false;
 }
