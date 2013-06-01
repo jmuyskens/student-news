@@ -10,6 +10,7 @@ DEBUG = True
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
+VALID_TAGS = ['free', 'food', 'film', 'music', 'art', 'socialjustice', 'academics', 'lecture', 'weekend', 'contest', 'comedy', 'conference', 'prayer', 'charity', 'drama']
 
 # create our little application :)
 app = Flask(__name__)
@@ -38,7 +39,7 @@ def teardown_request(exception):
 def show_entries():
     cur = g.db.execute('select title, body, sender, email, id, approved, tags from entries order by id desc')
     entries = [dict(title=row[0], body=row[1], sender=row[2], email=row[3], id=row[4], approved=row[5], tags=row[6].split(",")) for row in cur.fetchall()]
-    return render_template('show_entries.html', entries=entries)
+    return render_template('show_entries.html', entries=entries, tags=VALID_TAGS)
 
 @app.route('/add', methods=["POST"])
 def add_entry():

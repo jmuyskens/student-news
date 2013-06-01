@@ -37,17 +37,26 @@
 {% endif %}
 <form style="display:none" id="entryForm" class=add-entry>
   <dl>
+    <div class="formcolumn">
     <dt>Name:
       <dd><input type=text size=30 name=sender>
-	<dt>Email:
-	  <dd><input type=email  size=30 name=email>
+    </div>
+    <div class="formcolumn">
+    <dt>Email:
+      <dd><input type=email  size=30 name=email>
+    </div>
+    <div class="formcolumn">
     <dt>Title:
       <dd><input type=text size=30 name=title>
-	<dt>Body:
-	  <dd><textarea name=body rows=5 cols=40></textarea>
-	    <input type="checkbox" name="tag[]" value="film" />Film<br />
-	    <input type="checkbox" name="tag[]" value="free" />Free<br />
-	    <dd><input type=button value=Post onClick="submitEntry()">
+    </div>
+    <dt>Body:
+      <dd><textarea name=body rows=5 cols=50></textarea>
+	<div id="tags">
+	  {% for tag in tags %}
+	  <input type="checkbox" name="tag[]" value="{{ tag }}" />{{ tag }}<br />
+	  {% endfor %}
+	</div>
+      <dd><input type=button value=Post onClick="submitEntry()">
   </dl>
 </form>
 {% endblock %}

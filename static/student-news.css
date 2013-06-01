@@ -16,9 +16,25 @@ body {
     padding:0;
     margin: 0 auto;
 }
+#tags {
+    -moz-column-count: 3;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 3;
+    column-count: 3;
+    column-gap: 10px;
+}
+#addPost {
+    width:6em;
+}
 dd {
     padding: 0 0;
     margin: 0 0;
+}
+
+.formcolumn {
+    float: left;
+    width: 33%;
 }
 .deletebutton {
     float:right;
