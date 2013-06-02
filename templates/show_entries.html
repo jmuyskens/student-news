@@ -2,7 +2,7 @@
 {% block body %}
 {% for entry in entries %}
 {% if session.logged_in or entry.approved %}
-<div class="message {{ entry.id }}">
+<div class="message {{ entry.id }} {% for tag in entry.tags %} {{tag }}{% endfor %}">
 <div class="separator"></div>
 <div class="messageheader {% if not entry.approved %}unapproved{% endif %}">
   <p class="sender">{{ entry.sender }} | 
@@ -26,6 +26,7 @@
 <div class="separator"></div>
 <button id="addPost">Add post</button>
 <button id="testPost" onClick="testPost()">Test post</button>
+<button id="selectTags">View tags</button>
 {% if not session.logged_in %}
 <form action="{{ url_for('login') }}" style="display:inline">
   <input type="submit" class="login" value="Login" style="display:inline">

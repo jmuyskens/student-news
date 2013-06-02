@@ -29,7 +29,7 @@ button:active, input[type=button]:active, input[type=submit]:active {
     padding:0;
     margin: 0 auto;
 }
-#tags {
+#tags, #selectForm {
     -moz-column-count: 3;
     -moz-column-gap: 20px;
     -webkit-column-count: 3;

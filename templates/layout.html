@@ -22,9 +22,14 @@
     {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
     {% endfor %}
+    <div id="selectForm" style="display:none">
+      {% for tag in tags %}
+      <input type="checkbox" name="tag[]" value="{{ tag }}" onClick="selectviews()">{{ tag }}<br />
+      {% endfor %}
+    </div>
     {% block body %}{% endblock %}
-    {% block form %}{% endblock %}
   </div>
   <script src="{{ url_for('static', filename='show_form.js') }}"></script>
+
 </body>
 </html>

@@ -10,3 +10,14 @@ $("#addPost").click(function() {
 	$(this).text("Add post");
     }
 });
+$("#selectTags").on("click", function() {
+    if ($("#selectForm").css("display") == "none") {
+	$("#selectForm").slideDown();
+	$("html, body").animate({ scrollTop: $("#selectForm").offset().top}, "slow" );
+	$(this).text("Hide tags");
+    } else {
+	$("#selectForm").slideUp();
+	$(this).text("View tags");
+    }
+});
+

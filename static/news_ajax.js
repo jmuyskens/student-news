@@ -1,3 +1,24 @@
+/*****************************
+ *   filters posts by tag    *
+ *****************************/
+function selectviews() {
+    taglist = [];
+    // form a list of the selected tags
+    $("#selectForm input:checked").each( function() {
+	taglist.push($(this).val());
+    });
+    if (taglist.length > 0) {
+	// show all the posts that match the tags
+	$(".message." + taglist.join(", .message.") ).slideDown();
+	// hide all those that don't
+	$(".message:not(." + taglist.join(", .") + ")").slideUp();
+    } else {
+	// if no tags selected, show all posts
+	$(".message").slideDown();
+    }
+}
+
+
 function delnews(key) {
     $.getJSON($SCRIPT_ROOT + '/del', {
 	id: key
@@ -21,7 +42,7 @@ function appnews(key) {
 
 function submitEntry() {
     var taglist = [];
-    $("input:checked").each( function() {
+    $("#entryForm input:checked").each( function() {
 	taglist.push($(this).val());
     });
     var thedata = {
@@ -56,3 +77,17 @@ function testPost() {
     $("[name=body]").val("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum pharetra euismod. Cras congue posuere scelerisque. Pellentesque lacus turpis, aliquet ac placerat ac, dapibus sed tortor. Mauris elementum ultrices odio vitae volutpat. Suspendisse interdum justo id velit lacinia nec dictum nibh varius. Morbi non erat sit amet risus elementum placerat et nec ipsum. Nam volutpat porta odio, eu gravida orci volutpat a. Etiam cursus, mauris non mattis euismod, ipsum tellus ullamcorper nunc, molestie pretium sapien libero sodales mi. Cras vel elit ipsum, et euismod erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis enim mauris, interdum eu dictum eget, tincidunt sed quam.");
     submitEntry();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
