@@ -23,9 +23,12 @@
     <div class=flash>{{ message }}</div>
     {% endfor %}
     <div id="selectForm" style="display:none">
+      <div class="separator"></div>
+      <div id="formwrapper">
       {% for tag in tags %}
       <input type="checkbox" name="tag[]" value="{{ tag }}" onClick="selectviews()">{{ tag }}<br />
       {% endfor %}
+      </div>
     </div>
     {% block body %}{% endblock %}
   </div>
